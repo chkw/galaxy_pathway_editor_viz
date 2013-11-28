@@ -6,7 +6,6 @@
 
 ## ----------------------------------------------------------------------------
 <link type="text/css" rel="Stylesheet" media="screen" href="/static/style/base.css">
-<link type="text/css" rel="Stylesheet" media="screen" href="/plugins/visualizations/limaxview/static/graphview.css">
 
 ## ----------------------------------------------------------------------------
 ##<script type="text/javascript" src="/static/scripts/libs/jquery/jquery.js"></script>
@@ -20,7 +19,6 @@
 <link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/jquery.contextmenu.css">
 <link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/main19.css">
 
-<script type="text/javascript" src="/plugins/visualizations/limaxview/static/graphview.js"></script>
 ##<script type="text/javascript" src="/plugins/visualizations/limaxview/static/jquery.rdfquery.core.js"></script>
 
 <link type="text/css" src="/plugins/visualizations/limaxview/static/main18.css"></script>
