@@ -1,0 +1,315 @@
+Mon Sep  9 11:38:22 PDT 2013
+
+IRC CHANNEL: #galaxyproject
+
+Developing on galaxy viz framework.
+
+Carl Eberhard: ceberhard (irc)
+http://wiki.galaxyproject.org/VisualizationsRegistry
+
+
+
+
+
+9:48
+limax
+Hi Carl.
+
+9:49
+ceberhard
+Heya. How's it going?
+Sorry I missed you last week.
+
+9:49
+limax
+Pretty good.
+
+9:49
+ceberhard
+Was in a meeting.
+
+9:49
+limax
+Oh.  It's alright.
+So the context menus work now!  Thanks for recommending that JS module.
+
+9:50
+ceberhard
+Oh. Cool!
+
+9:50
+limax
+I have couple new questions for you.
+
+9:50
+ceberhard
+Sure.
+
+9:50
+limax
+So, my visualization is actually a pathway editor, right?
+
+9:51
+ceberhard
+Ok.
+
+9:51
+limax
+User uploads a pathway file.
+Views the network graph in the visualization.
+Edits the graph using the visualization.
+Is there a way to output the new, edited graph in a file?
+
+9:52
+ceberhard
+So:
+
+9:52
+limax
+Do you kind of get what I'm talking about?
+
+9:52
+ceberhard
+We've kind of taken the tack that visualizations (in general) shouldn't produce data.
+IOW...
+
+9:52
+limax
+oh.
+
+9:53
+ceberhard
+Since they're not versioned or controlled on how they effect data - they're not reliable in a reproducibility chain.
+
+9:54
+limax
+I wonder what is your recommendation for me, then.
+Currently, I output the new graph as text in a text area.  User has to copy/paste into a new file for upload.
+
+9:54
+ceberhard
+There are two ways you can still have it work (and, by all means, what you're lab/experiment/own priorities should guide you more than our feelings on it)
+Right, so:
+1) Trackster creates new datasets through the tool api
+…it shows a change in the data directly in the visualization and then
+…starts a tool that does the same effect with the proper parameters (AFAIK)
+In your case, this prob. won't work because it's manual editing and
+there's no way to create a tool that will do the same.
+(programmitically)
+
+9:57
+limax
+Yes, it is a manual process performed by (hopefully) an expert in the field.
+
+9:57
+ceberhard
+2) You can post to the upload tool through the api (programmatically)
+In this case, it's not reproducible, but if you're comfortable with that...
+It will probably work.
+
+9:59
+limax
+in method 2, the user can specify a name for the file, right?  It doesn't clobber anything right?
+
+9:59
+ceberhard
+Yes (AFAIK) you can set the name, genome, etc. when POSTing to upload1
+
+10:00
+limax
+Oh.  Okay, I think this is a possibility, then.  Is there documentation to help me figure out how to do this?
+
+10:00
+ceberhard
+Not much, I'm afraid.
+the url is POST api/tools/upload1
+
+10:01
+limax
+Okay.  Then is there an example that I can look at?
+
+10:01
+ceberhard
+You might check out Sam's stuff in galaxy.upload.js which posts to upload1
+
+10:01
+limax
+Who is Sam?
+
+10:02
+ceberhard
+Aysam Guerler (guerler) who works at Emory.
+He's a UI guy as well now.
+
+10:02
+limax
+Oh okay.  Was wondering if this is the same Sam that we have in our lab.
+
+10:03
+ceberhard
+Associated code is in static/scripts/utils/galaxy.uploadbox.js
+and api/tools.py
+I'd recommend using jQuery for your AJAX (Sam creates his own XHR).
+It's simpler.
+
+10:05
+limax
+Okay, so I imagine that I would use jqery to post the file to the upload service along with file name, genome, etc… and then the new file should appear in user's history, right?
+
+10:05
+ceberhard
+You would have to refresh the history as well.
+
+10:06
+limax
+okay.  That doesn't seem too hard.  I hope it works!
+
+10:06
+ceberhard
+You _should_ be able to do that by calling Galaxy.currHistoryPanel.refreshHdas()
+Cool.
+Me too.
+
+10:06
+limax
+Thanks for the tips!
+
+10:06
+ceberhard
+Sure.
+
+10:06
+limax
+next question
+
+10:06
+ceberhard
+Shoot.
+
+10:07
+limax
+Right now my visualization accepts one file… the pathway file for viewing.
+
+10:07
+ceberhard
+Ok.
+
+10:07
+limax
+Is there a way for my visualization to take 2 or more files?
+
+10:08
+ceberhard
+Not automatically (yet). It's def. something I'd like to do but involves some decisions.
+I'd suggest adding UI to select a dataset from a list (like the history).
+Or if it'll be required: a modal on the vis startup.
+
+10:09
+limax
+I have a more advanced visualization that would require at least 2 files.
+
+10:09
+ceberhard
+I'd recommend the modal on start up then.
+
+10:10
+limax
+What do you mean by this?
+
+10:10
+ceberhard
+A modal is a dialog box that prevents interaction with anything but it.
+You can see one when you start trackster.
+The code we use is galaxy.modal.js
+
+10:11
+limax
+Yes, I'm not sure I understand what you mean by 'on start up'.
+
+10:11
+ceberhard
+When your visualization first loads.
+
+10:11
+limax
+Oh… okay.
+
+10:11
+ceberhard
+Make sense?
+
+10:12
+limax
+So the viz steals the focus from all other windows when it is started.
+
+10:12
+ceberhard
+Essentially.
+Are you familiar with dialog boxes?
+
+10:13
+limax
+Yes, I am.
+
+10:13
+ceberhard
+So - a dialog box appears with the visualization in the bg.
+There is an element that acts like an overlay between the browser window (Galaxy, your vis) that blocks clicking and darkens the window a bit.
+
+10:14
+limax
+I think I know what you're getting at… have a file-picking modal dialog box when the viz starts.
+
+10:14
+ceberhard
+Over that is the dialog box that presents a list of datasets in the current history and asks the user to select the dataset.
+Well - dataset picking - but yes.
+
+10:15
+limax
+Is there documentation/example for this kind of dataset picking?
+
+10:15
+ceberhard
+No, unfortunately.
+There is an example in trackster you may be able to use.
+You can see the functionality when you add a track or click 'add dataset'.
+
+10:17
+limax
+Okay.  I'll look into it when I get a chance.  I think my next goal will be to upload edited pathway to user's history.
+Thanks again for your help.
+
+10:17
+ceberhard
+Cool.
+It may be that we can add the dataset selection modal on our side to make that easier
+(if we get time)
+
+10:19
+limax
+Yes, I was a little bit hoping you guys might have a better way by the time I get to it.
+Okay.  I've to get to the beach now.  Our lab is having an surfin' staches event to support Movember.
+https://sites.google.com/a/soe.ucsc.edu/surfin-staches/
+
+10:20
+ceberhard
+Nice!
+Don't forget to get all the facial hair microbiome data afterward.
+
+10:21
+limax
+10:21
+blech!
+
+10:21
+ceberhard
+
+
+10:21
+limax
+thanks again for your help.  ..and have a nice Thanksgiving.
+
+10:21
+ceberhard
+You too!
