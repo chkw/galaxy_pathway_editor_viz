@@ -7,7 +7,7 @@ Developing on galaxy viz framework.
 Carl Eberhard: ceberhard (irc)
 http://wiki.galaxyproject.org/VisualizationsRegistry
 
-
+Aysam Guerler (guerler) who works at Emory.
 
 
 
@@ -313,3 +313,239 @@ thanks again for your help.  ..and have a nice Thanksgiving.
 10:21
 ceberhard
 You too!
+
+
+1:10
+limax
+Hi Carl.  You recommended for me to talk to Sam Guerler about uploading a file to galaxy user's history.  Is 'guerler' his irc name?
+
+1:10
+ceberhard
+Yep.
+and hi
+
+1:10
+limax
+Okay.  Thanks!
+
+1:10
+ceberhard
+Sure!
+
+1:11
+limax
+I'm going to ask him about this later today or tomorrow morning.
+
+1:11
+ceberhard
+Ok. Sounds good.
+How's the visualization?
+
+1:13
+limax
+I have some other questions for you, actually.  I'll ask you after my meeting that I have right now.
+
+1:14
+ceberhard
+Sure.
+2:21
+You have connected
+
+2:21
+limax
+Hi Carl
+
+2:22
+ceberhard
+Heya.
+
+2:22
+limax
+I'm back from one meeting.
+
+2:22
+ceberhard
+'one'
+:)
+When's the next?
+
+2:23
+limax
+So, here's what I've noticed about the galaxy viz...
+
+2:23
+ceberhard
+Ok. Shoot.
+
+2:23
+limax
+The viz menu only appears for certain datatypes.
+For example...
+I can start my viz for sif file, but not tab file.
+
+2:24
+ceberhard
+Right.
+You're still using the config/graphview.xml file, correct?
+
+2:24
+limax
+yes,  i am using a modified one.
+
+2:24
+ceberhard
+Or a version copied using your name.
+Ok.
+Let me pull the original up quick.
+
+2:25
+limax
+Is that where I can specify which datatypes can use limaxview?
+
+2:25
+ceberhard
+Right.
+So - for each* datatype you want to use with limaxview, you specify a datasource.
+*and you can use the datatype hierarchy to add all children of a datatype.
+err: make that a 'data_source'.
+
+2:28
+limax
+hmmm….
+
+2:28
+ceberhard
+Foresee some difficulties?
+
+2:28
+limax
+what are the allowed values for datasource
+i see graph.Rdf is allowed.  as is node-edge.
+what other ones?
+
+2:28
+ceberhard
+Well - for datatypes...
+(and that's not the only test possible)
+
+2:29
+limax
+For example, how can I add some generic tabbed file to the list?
+
+2:29
+ceberhard
+any of the datatypes installed in your Galaxy installation.
+So - scatterplot allows all tabular and descendant datatypes of tabular.
+Check scatterplot.xml for that definition.
+
+2:30
+limax
+Oh.  I'll take a look at that one.
+
+2:30
+ceberhard
+"<test type="isinstance" test_attr="datatype" result_type="datatype">tabular.Tabular</test>"
+
+2:31
+limax
+I should leave model_class unchanged, right?  use HistoryDatasetAssociation each time.
+
+2:31
+ceberhard
+Right.
+For right now - that's the only place you access visualizations - the history panel.
+data_source basically asks the server:
+is it an HDA? yes, then...
+does it have a datatype of tabular? yes, then: provide a link.
+(and convert the HDA into the url parameter dataset_id)
+
+2:33
+limax
+Oh.  okay.  I understand it a little better now.  Link for the viz is only visible if the tests are all passed.
+.. and each tag in the datasource is a kind of test.
+
+2:34
+ceberhard
+Yep. _except_ 'if ANY of the tests are passed'.
+
+2:34
+limax
+oh.
+
+2:34
+ceberhard
+Right.
+
+2:35
+limax
+so the tests are "or"-ed
+
+2:35
+ceberhard
+Right.
+So - you generally want to go from specific to general with data_sources.
+I don't think you'll need to worry about that right now, tho.
+Seems like you want to open up the possibilities.
+
+2:37
+limax
+How do I interpret what tabular.Tabular means?  It looks like xx.yy format.
+what is xx? and what is yy?
+
+2:38
+ceberhard
+That's a bit of a remnant of python code unfortunately.
+A couple of other 'tabular' classes are added dynamically during the datatype load.
+'tabular.Tabular' specifies the datatypes/tabular module.
+And then the Tabular class.
+
+2:39
+limax
+oh.  ok.
+
+2:39
+ceberhard
+Without that namespace 'tabular.', it could grab those 'other' Tabular classes.
+
+2:40
+limax
+right.
+
+2:40
+ceberhard
+A bit opaque, admittedly.
+
+2:40
+limax
+it is to avoid namespace collision.
+
+2:40
+ceberhard
+Had you seen this: http://wiki.galaxyproject.org/Documents/Presentations/GCC2013?action=AttachFile&do=view&target=EberhardCreateViz.pdf ?
+Right.
+Most of the content in the slides still applies.
+
+2:41
+limax
+yes, I have seen it.  It didn't mean much to me at the time.  I should take a look at it again.  Thanks for reminding me about it.
+
+2:41
+ceberhard
+2:41
+Sure - it's not the best reference - but it might help show the possibilities.
+
+2:51
+limax
+here's another problem with datatypes...
+
+2:52
+ceberhard
+Ok.
+
+2:52
+limax
+oh.  another meeting, sorry.
+
+2:52
+ceberhard
+Ok. We can talk more tomorrow.
