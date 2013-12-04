@@ -549,3 +549,126 @@ oh.  another meeting, sorry.
 2:52
 ceberhard
 Ok. We can talk more tomorrow.
+
+
+
+
+
+
+
+2:28
+limax
+Hi Carl.
+
+2:28
+ceberhard
+Heya.
+How are you?
+
+2:28
+limax
+Pretty good.  you?
+
+2:29
+ceberhard
+Good!
+
+2:29
+limax
+We had our first frost of the season last night.
+
+2:29
+ceberhard
+You're in Santa Cruz, right?
+
+2:29
+limax
+I'm a little bit up the hill from Santa Cruz, but yah… Santa Cruz area.
+So Sam has given me some tips about the uploading API.
+
+2:30
+ceberhard
+Nice.
+
+2:31
+limax
+Using the API, I need to specify some things about the uploading file.
+
+2:31
+ceberhard
+Ok.
+
+2:31
+limax
+For example, genome (dbkey).
+This would probably be the same value as the file I use to generate my viz.
+
+2:31
+ceberhard
+AFAIK - that one's optional, but yeah.
+
+2:32
+limax
+How do I look at what key value pairs I have for that file.
+It is in some object called hda, right?
+… but it seems I can't just do JSON.stringify(hda) to look at it.
+
+2:33
+ceberhard
+Right. It's a python variable in the mako template.
+To get it into a js object:
+you'd do (in a script tag):
+(one sec - lemme look at scatterplot - it does that)
+
+2:34
+limax
+your last message displayed as a sad smiley.
+
+2:35
+ceberhard
+Heh.
+So: 'hdaJson = ${h.to_json_string( hda_dict )}'
+
+2:35
+limax
+lemme try that.
+
+2:35
+ceberhard
+Where 'hda_dict' is hda_dict = trans.security.encode_dict_ids( hda.to_dict() )
+so in one line:
+hdaJson = ${h.to_json_string( trans.security.encode_dict_ids( hda.to_dict() ) )}
+the to_dict serializes the sqlalchemy hda model into a python dict.
+the encode_dict_ids makes sure you're ids are scrambled properly (1 = 'abc12343533')
+the h.to_json_string converts the dict to a JSON string (where h are the template helpers)
+the ${} is a mako syntax for computed text.
+
+2:38
+limax
+I don't know mako at all, so I'm kind of stumbling along here.
+
+2:38
+ceberhard
+If you do 'view source' on your page, you'll see mako has written the entire json string after the 'hdaJSON = '
+No worries.
+You're working with the first and lowest layer of the vis framework - so it will combine a lot of raw technologies.
+(some steep learning curve)
+
+2:39
+limax
+It seems to work.  I can see the stringified JSON object for the hda now.  I'll use that to see which values i can re-use for the upload.
+
+2:40
+ceberhard
+2:40
+Cool.
+
+2:40
+limax
+Thanks again.
+
+2:40
+ceberhard
+Sure.
+
+

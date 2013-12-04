@@ -46,6 +46,13 @@
 
 
 <script type="text/javascript">
+
+	var currentId = parent.Galaxy.currHistoryPanel.model.get('id');
+	console.log('id: ' + currentId);
+
+	var hdaJson = ${h.to_json_string( trans.security.encode_dict_ids( hda.to_dict() ) )};
+	console.log(hdaJson);
+
 	var hdaId   = '${trans.security.encode_id( hda.id )}',
         hdaExt  = '${hda.ext}',
         graphDataURL = "${h.url_for( controller='/datasets', action='index')}/" + hdaId + "/display?to_ext=" + hdaExt;
