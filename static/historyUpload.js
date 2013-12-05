@@ -4,7 +4,7 @@ var UPLOAD_API_URL = 'api/tools';
 
 function setupUpload() {
     var currentId = parent.Galaxy.currHistoryPanel.model.get('id');
-    console.log('id: ' + currentId);
+    console.log('current id: ' + currentId);
 }
 
 /**
