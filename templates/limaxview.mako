@@ -27,6 +27,8 @@
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+<script type="text/javascript" src="/plugins/visualizations/limaxview/static/historyUpload.js"></script>
+
 </head>
 
 ## ----------------------------------------------------------------------------
@@ -47,11 +49,8 @@
 
 <script type="text/javascript">
 
-	var currentId = parent.Galaxy.currHistoryPanel.model.get('id');
-	console.log('id: ' + currentId);
-
-	var hdaJson = ${h.to_json_string( trans.security.encode_dict_ids( hda.to_dict() ) )};
-	console.log(hdaJson);
+    var hdaJson = ${h.to_json_string(trans.security.encode_dict_ids(hda.to_dict()))};
+    console.log(hdaJson);
 
 	var hdaId   = '${trans.security.encode_id( hda.id )}',
         hdaExt  = '${hda.ext}',
@@ -79,6 +78,8 @@
 
 		startEditor();
 	});
+	
+	setupUpload();
 </script>
 
 
