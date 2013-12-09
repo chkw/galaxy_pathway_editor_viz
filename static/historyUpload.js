@@ -1,8 +1,7 @@
+console.log('historyUpload.js loading');
 // Upload a file to a Galaxy user's history using Galaxy's upload API.
 
 //var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
-
-//function uploadToGalaxyHistory(fileText, fileName, hdaJSObject) {
 function galaxyHistoryUpload(historyId) {
     console.log('creating galaxyHistoryUploader for history ' + historyId);
     var UPLOAD_API_URL = 'api/tools';
@@ -10,12 +9,13 @@ function galaxyHistoryUpload(historyId) {
     this.historyId = historyId;
 
     this.postToHistory = function(file_type, fileName, fileText) {
+        console.log('postToHistory');
         var genome = '?';
         var url_paste = '';
         var space_to_tabs = false;
 
         // configure tool
-        tool_input = {};
+        var tool_input = {};
         tool_input['dbkey'] = genome;
         tool_input['file_type'] = file_type;
         tool_input['files_0|NAME'] = fileName;
@@ -23,16 +23,31 @@ function galaxyHistoryUpload(historyId) {
         tool_input['files_0|url_paste'] = url_paste;
         tool_input['space_to_tabs'] = space_to_tabs;
 
+        console.log('tool_input: ' + JSON.stringify(tool_input));
+
         // setup data
-        data = {};
+        var data = {};
         data['history_id'] = this.historyId;
         data['tool_id'] = 'upload1';
         data['inputs'] = JSON.stringify(tool_input);
 
+        console.log('data: ' + JSON.stringify(data));
+
         // construct form data
         var formData = new FormData();
+
+        console.log('1);
+        formData.append('k1','v1');
+        console.log('1);
+        formData.append('k2','v2');
+        console.log('1);
+        formData.append('k3','v3');
+        console.log('1);
+
         for (var key in data) {
-            formData.append(key, data[key]);
+            var val = JSON.stringify(data[key]);
+            console.log('key: ' + key + '\tval: ' + val);
+            formData.append(key, val);
         }
 
         // add file to form
@@ -43,15 +58,18 @@ function galaxyHistoryUpload(historyId) {
 
         formData.append('files_0|file_data', fileBlob, fileName);
 
+        console.log('formData: ' + JSON.stringify(formData));
+
         // form object has to be posted to api/tools by calling/copying the send() function from static/scripts/utils/galaxy.uploadbox.js
-        var jqxhr = $.post(UPLOAD_API_URL, formData, function() {
-            alert("success");
+        // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
+        var jqxhr = $.post('api/tools', formData, function() {
+            console.log("success");
         }).done(function() {
-            alert("second success");
+            console.log("second success");
         }).fail(function() {
-            alert("error");
+            console.log("error");
         }).always(function() {
-            alert("finished");
+            console.log("finished");
         });
     };
 

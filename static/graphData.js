@@ -1,3 +1,4 @@
+console.log('graphData.js loading');
 /**
  * Data to specify a node.
  */

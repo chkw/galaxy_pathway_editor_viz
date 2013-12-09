@@ -17,16 +17,14 @@
 
 <script type="text/javascript" src="/plugins/visualizations/limaxview/static/jquery.contextMenu.js"></script>
 <link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/jquery.contextmenu.css">
-<link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/main19.css">
 
 ##<script type="text/javascript" src="/plugins/visualizations/limaxview/static/jquery.rdfquery.core.js"></script>
 
-<link type="text/css" src="/plugins/visualizations/limaxview/static/main18.css"></script>
-
-<script type="text/javascript" src="/plugins/visualizations/limaxview/static/graphData.js"></script>
-<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
+<link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/main19.css">
+<script type="text/javascript" src="/plugins/visualizations/limaxview/static/graphData.js"></script>
 <script type="text/javascript" src="/plugins/visualizations/limaxview/static/historyUpload.js"></script>
 
 </head>
@@ -59,7 +57,10 @@
     console.log('using url: ' + graphDataURL);
 			
 	var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
-	var hu = new galaxyHistoryUpload(historyId);
+	//var hu = new galaxyHistoryUpload(historyId);
+	
+    //console.log('calling postToHistory');
+	//hu.postToHistory('testType', 'testName', 'testText');
 
 	d3.text(graphDataURL, function(error, data) {
 		if (error !== null) {
