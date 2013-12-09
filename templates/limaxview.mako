@@ -57,6 +57,9 @@
         graphDataURL = "${h.url_for( controller='/datasets', action='index')}/" + hdaId + "/display?to_ext=" + hdaExt;
         
     console.log('using url: ' + graphDataURL);
+			
+	var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
+	var hu = new galaxyHistoryUpload(historyId);
 
 	d3.text(graphDataURL, function(error, data) {
 		if (error !== null) {
@@ -78,8 +81,6 @@
 
 		startEditor();
 	});
-	
-	setupUpload();
 </script>
 
 
