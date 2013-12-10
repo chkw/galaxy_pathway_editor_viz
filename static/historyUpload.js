@@ -4,7 +4,8 @@ console.log('historyUpload.js is loading');
 //var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
 function galaxyHistoryUploader(historyId) {
     console.log('creating galaxyHistoryUploader for history ' + historyId);
-    var UPLOAD_API_URL = 'api/tools';
+    var UPLOAD_API_URL = '/api/tools';
+    console.log('UPLOAD_API_URL: ' + UPLOAD_API_URL);
 
     this.historyId = historyId;
 
@@ -65,7 +66,7 @@ function galaxyHistoryUploader(historyId) {
         // form object has to be posted to api/tools by calling/copying the send() function from static/scripts/utils/galaxy.uploadbox.js
         // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
         // http://stackoverflow.com/questions/6974684/how-to-send-formdata-objects-with-ajax-requests-in-jquery
-        var jqxhr = $.post('api/tools', fData, function() {
+        var jqxhr = $.post(UPLOAD_API_URL, null, function() {
             console.log("success");
         }).done(function() {
             console.log("second success");
