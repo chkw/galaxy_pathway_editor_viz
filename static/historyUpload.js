@@ -4,7 +4,7 @@ console.log('historyUpload.js is loading');
 //var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
 function galaxyHistoryUploader(historyId) {
     console.log('creating galaxyHistoryUploader for history ' + historyId);
-    var UPLOAD_API_URL = '/api/tools';
+    var UPLOAD_API_URL = 'api/tools';
     console.log('UPLOAD_API_URL: ' + UPLOAD_API_URL);
 
     this.historyId = historyId;
