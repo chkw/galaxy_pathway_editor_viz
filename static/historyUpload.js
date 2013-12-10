@@ -1,8 +1,8 @@
-console.log('historyUpload.js loading');
+console.log('historyUpload.js is loading');
 // Upload a file to a Galaxy user's history using Galaxy's upload API.
 
 //var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
-function galaxyHistoryUpload(historyId) {
+function galaxyHistoryUploader(historyId) {
     console.log('creating galaxyHistoryUploader for history ' + historyId);
     var UPLOAD_API_URL = 'api/tools';
 
@@ -36,13 +36,13 @@ function galaxyHistoryUpload(historyId) {
         // construct form data
         var formData = new FormData();
 
-        console.log('1);
+        console.log('1');
         formData.append('k1','v1');
-        console.log('1);
+        console.log('1');
         formData.append('k2','v2');
-        console.log('1);
+        console.log('1');
         formData.append('k3','v3');
-        console.log('1);
+        console.log('1');
 
         for (var key in data) {
             var val = JSON.stringify(data[key]);

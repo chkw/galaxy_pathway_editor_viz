@@ -17,14 +17,16 @@
 
 <script type="text/javascript" src="/plugins/visualizations/limaxview/static/jquery.contextMenu.js"></script>
 <link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/jquery.contextmenu.css">
+<link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/main19.css">
 
 ##<script type="text/javascript" src="/plugins/visualizations/limaxview/static/jquery.rdfquery.core.js"></script>
 
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link type="text/css" src="/plugins/visualizations/limaxview/static/main19.css"></script>
 
-<link type="text/css" rel="stylesheet" href="/plugins/visualizations/limaxview/static/main19.css">
 <script type="text/javascript" src="/plugins/visualizations/limaxview/static/graphData.js"></script>
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <script type="text/javascript" src="/plugins/visualizations/limaxview/static/historyUpload.js"></script>
 
 </head>
@@ -47,6 +49,12 @@
 
 <script type="text/javascript">
 
+
+	var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
+	console.log('historyId: ' + historyId);
+	var uploader = new galaxyHistoryUploader(historyId);
+	uploader.postToHistory('aaa', 'bbb', 'ccc');
+
     var hdaJson = ${h.to_json_string(trans.security.encode_dict_ids(hda.to_dict()))};
     console.log(hdaJson);
 
@@ -54,13 +62,7 @@
         hdaExt  = '${hda.ext}',
         graphDataURL = "${h.url_for( controller='/datasets', action='index')}/" + hdaId + "/display?to_ext=" + hdaExt;
         
-    console.log('using url: ' + graphDataURL);
-			
-	var historyId = parent.Galaxy.currHistoryPanel.model.get('id');
-	//var hu = new galaxyHistoryUpload(historyId);
-	
-    //console.log('calling postToHistory');
-	//hu.postToHistory('testType', 'testName', 'testText');
+    console.log('graph data url: ' + graphDataURL);
 
 	d3.text(graphDataURL, function(error, data) {
 		if (error !== null) {
