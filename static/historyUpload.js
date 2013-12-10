@@ -34,20 +34,21 @@ function galaxyHistoryUploader(historyId) {
         console.log('data: ' + JSON.stringify(data));
 
         // construct form data
-        var formData = new FormData();
+        var fData = new FormData();
 
         console.log('1');
-        formData.append('k1','v1');
+        fData.append("k1", "v1");
         console.log('1');
-        formData.append('k2','v2');
+        fData.append('k2', 'v2');
         console.log('1');
-        formData.append('k3','v3');
+        fData.append('k3', 'v3');
         console.log('1');
 
         for (var key in data) {
-            var val = JSON.stringify(data[key]);
-            console.log('key: ' + key + '\tval: ' + val);
-            formData.append(key, val);
+            var k = JSON.stringify(key);
+            var v = JSON.stringify(data[key]);
+            console.log('key: ' + k + '\tval: ' + v);
+            fData.append(k, v);
         }
 
         // add file to form
@@ -56,13 +57,15 @@ function galaxyHistoryUploader(historyId) {
             type : "text/plain"
         });
 
-        formData.append('files_0|file_data', fileBlob, fileName);
+        fData.append('files_0|file_data', fileBlob, fileName);
 
-        console.log('formData: ' + JSON.stringify(formData));
+        console.log('fData: ' + JSON.stringify(fData));
+        console.log('fData.toString: ' + fData.toString()[0]);
 
         // form object has to be posted to api/tools by calling/copying the send() function from static/scripts/utils/galaxy.uploadbox.js
         // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
-        var jqxhr = $.post('api/tools', formData, function() {
+        // http://stackoverflow.com/questions/6974684/how-to-send-formdata-objects-with-ajax-requests-in-jquery
+        var jqxhr = $.post('api/tools', fData, function() {
             console.log("success");
         }).done(function() {
             console.log("second success");
