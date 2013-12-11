@@ -58,7 +58,14 @@ function galaxyHistoryUploader(historyId) {
             contentType : false,
             type : 'POST',
             success : function(data) {
-                console.log(data);
+                console.log('POST success' + JSON.stringify(data));
+            },
+            error : function(textStatus, errorThrown) {
+                console.log('POST status: ' + JSON.stringify(textStatus));
+                console.log('POST error: ' + JSON.stringify(errorThrown));
+            },
+            complete : function(textStatus) {
+                console.log('POST completed: ' + JSON.stringify(textStatus));
             }
         });
 
