@@ -35,46 +35,33 @@ function galaxyHistoryUploader(historyId) {
         console.log('data: ' + JSON.stringify(data));
 
         // construct form data
-        var fData = new FormData();
-
-        console.log('1');
-        fData.append("k1", "v1");
-        console.log('1');
-        fData.append('k2', 'v2');
-        console.log('1');
-        fData.append('k3', 'v3');
-        console.log('1');
+        var formData = new FormData();
 
         for (var key in data) {
             var k = JSON.stringify(key);
             var v = JSON.stringify(data[key]);
             console.log('key: ' + k + '\tval: ' + v);
-            fData.append(k, v);
+            formData.append(k, v);
         }
 
         // add file to form
 
-        var fileBlob = new Blob([fileText], {
-            type : "text/plain"
-        });
-
-        fData.append('files_0|file_data', fileBlob, fileName);
-
-        console.log('fData: ' + JSON.stringify(fData));
-        console.log('fData.toString: ' + fData.toString()[0]);
+        formData.append('files_0|file_data', fileText, fileName);
 
         // form object has to be posted to api/tools by calling/copying the send() function from static/scripts/utils/galaxy.uploadbox.js
         // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
         // http://stackoverflow.com/questions/6974684/how-to-send-formdata-objects-with-ajax-requests-in-jquery
-        var jqxhr = $.post(UPLOAD_API_URL, null, function() {
-            console.log("success");
-        }).done(function() {
-            console.log("second success");
-        }).fail(function() {
-            console.log("error");
-        }).always(function() {
-            console.log("finished");
+        $.ajax({
+            url : UPLOAD_API_URL,
+            data : formData,
+            processData : false,
+            contentType : false,
+            type : 'POST',
+            success : function(data) {
+                console.log(data);
+            }
         });
+
     };
 
 }
