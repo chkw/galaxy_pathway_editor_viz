@@ -5,12 +5,10 @@ console.log('historyUpload.js is loading');
 function galaxyHistoryUploader(historyId) {
     console.log('creating galaxyHistoryUploader for history ' + historyId);
     var UPLOAD_API_URL = '/api/tools';
-    console.log('UPLOAD_API_URL: ' + UPLOAD_API_URL);
 
     this.historyId = historyId;
 
     this.postToHistory = function(file_type, fileName, fileText) {
-        console.log('postToHistory');
         var genome = '?';
         var url_paste = '';
         var space_to_tabs = false;
@@ -23,8 +21,6 @@ function galaxyHistoryUploader(historyId) {
         tool_input['files_0|type'] = 'upload_dataset';
         tool_input['files_0|url_paste'] = url_paste;
         tool_input['space_to_tabs'] = space_to_tabs;
-
-        console.log('tool_input: ' + JSON.stringify(tool_input));
 
         // setup data
         var data = {};
